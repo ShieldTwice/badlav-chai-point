@@ -207,6 +207,61 @@ button:hover {
     transform: scale(1.05);
 }
     
+    /* 📱 MOBILE RESPONSIVE FIX */
+@media (max-width: 768px) {
+
+    /* Navbar stack */
+    nav {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    nav div {
+        margin-top: 10px;
+    }
+
+    /* Hero text छोटा */
+    h2 {
+        font-size: 28px;
+    }
+
+    /* Section padding कम */
+    #home {
+        padding: 60px 15px;
+    }
+
+    #menu, #gallery, #contact, #map, #reviews {
+        padding: 40px 15px;
+    }
+
+    /* Menu full width */
+    .menu-category {
+        width: 95%;
+    }
+
+    /* Gallery images full width */
+    #gallery img {
+        width: 90%;
+    }
+
+    /* Review cards full width */
+    .review-card {
+        width: 90%;
+    }
+
+    /* Buttons adjust */
+    .whatsapp, .direction {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+
+    .direction {
+        bottom: 70px;
+    }
+}
+    
 </style>
 </head>
 
