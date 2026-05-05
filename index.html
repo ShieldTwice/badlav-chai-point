@@ -149,17 +149,7 @@ button:hover {
 }
 
 /* 🔥 WHATSAPP BUTTON */
-.whatsapp {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: green;
-    color: white;
-    padding: 15px;
-    border-radius: 50%;
-    font-size: 20px;
-    text-decoration: none;
-}
+
     #map {
     text-align: center;
     padding: 60px 20px;
@@ -194,29 +184,41 @@ button:hover {
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-/* Direction */
-.direction {
+/* 🔥 FINAL PERFECT BUTTONS */
+
+.whatsapp, .direction {
     position: fixed;
-    bottom: 90px;   /* 👈 WhatsApp ke upar */
     right: 20px;
-    background: #6b3e26;
-    color: white;
-    font-size: 24px;
-    width: 55px;
-    height: 55px;
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    color: white;
     text-decoration: none;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: 0.3s;
+}
+
+/* WhatsApp */
+.whatsapp {
+    bottom: 20px;
+    background: #25D366;
+}
+
+/* Direction */
+.direction {
+    bottom: 80px;
+    background: #6b3e26;
 }
 
 /* Hover */
 .whatsapp:hover, .direction:hover {
     transform: scale(1.1);
-    transition: 0.3s;
 }
+    
 </style>
 </head>
 
@@ -309,8 +311,5 @@ button:hover {
     📍
 </a>
 
-</body>
-</html>
-    
 </body>
 </html>
