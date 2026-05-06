@@ -3,424 +3,1736 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panchaayat cafe</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
-
+<title>APEX — Elite Performance Training</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: #fffaf5;
-}
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* 🔥 NAVBAR */
-nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 40px;
-    background: rgba(62,39,35,0.95);
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
+  :root {
+    --black: #080808;
+    --deep: #0d0d0d;
+    --surface: #141414;
+    --card: #1a1a1a;
+    --border: #242424;
+    --orange: #FF5C00;
+    --orange-glow: rgba(255,92,0,0.25);
+    --orange-dim: #cc4900;
+    --text: #f0f0f0;
+    --muted: #888;
+    --faint: #3a3a3a;
+  }
 
-nav h1 {
-    margin: 0;
-    font-weight: 800;
-}
+  html { scroll-behavior: smooth; }
 
-nav a {
-    color: white;
-    margin-left: 20px;
-    text-decoration: none;
-    font-weight: 600;
-}
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
 
-nav a:hover {
-    color: #d4a373;
-}
+  /* CUSTOM SCROLLBAR */
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--orange); }
 
-/* 🔥 HERO */
-#home {
-    text-align: center;
-    padding: 100px 20px;
-    
-    background: linear-gradient(to right, #6b3e26, #d4a373);
-    color: white;
-}
-
-h2 {
-    font-size: 50px;
-    font-weight: 800;
-    text-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    animation: float 3s ease-in-out infinite;
-}
-
-.chai {
-    display: inline-block;
-    animation: bounce 2s infinite;
-}
-
-@keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-@keyframes bounce {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-}
-
-button {
-    margin-top: 20px;
-    padding: 12px 30px;
-    border-radius: 30px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-button:hover {
-    transform: scale(1.1);
-}
-
-/* 🔥 MENU */
-#menu {
-    padding: 60px 20px;
-    text-align: center;
-}
-
-.menu-category {
-    background: white;
-    margin: 15px auto;
-    padding: 15px;
-    width: 80%;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.menu-category h3 {
-    color: #6b3e26;
-}
-
-/* 🔥 GALLERY */
-#gallery {
-    padding: 60px;
-    text-align: center;
-}
-
-#gallery img {
-    width: 250px;
-    border-radius: 15px;
-    margin: 10px;
-}
-    
-/* 🔥 CONTACT */
-#contact {
-    padding: 60px;
-    text-align: center;
-}
-
-/* 🔥 MAP */
-#map {
-    text-align: center;
-    padding: 60px 20px;
-}
-
-#map h2 {
-    color: #6b3e26;
-    margin-bottom: 20px;
-}
-
-#map iframe {
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
-/* 🔥 FLOAT BUTTONS (same style, just fixed alignment) */
-.whatsapp, .direction {
+  /* NAV */
+  nav {
     position: fixed;
-    right: 20px;
-    width: 48px;
-    height: 48px;
-    font-size: 20px;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+    backdrop-filter: blur(4px);
+  }
+
+  .nav-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--orange); }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--orange); }
+
+  .nav-cta {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 10px 28px;
+    border: 1.5px solid var(--orange);
+    color: var(--orange);
+    background: transparent;
+    cursor: pointer;
+    border-radius: 40px;
+    transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+    text-decoration: none;
+  }
+  .nav-cta:hover {
+    background: var(--orange);
+    color: #000;
+    box-shadow: 0 0 24px var(--orange-glow);
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  #hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.55;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(255,92,0,0.08) 0%, transparent 70%),
+                linear-gradient(to right, rgba(8,8,8,0.92) 35%, rgba(8,8,8,0.3) 80%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 48px;
+    max-width: 780px;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 24px;
+  }
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: var(--orange);
+  }
+
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(72px, 9vw, 130px);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--orange);
+    -webkit-text-stroke: 0;
+    text-shadow: 0 0 60px rgba(255,92,0,0.5);
+  }
+  h1 .outline {
+    -webkit-text-stroke: 2px var(--text);
+    color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 440px;
+    margin-bottom: 40px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 16px 40px;
+    background: var(--orange);
+    color: #000;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0 32px rgba(255,92,0,0.55), 0 0 80px rgba(255,92,0,0.2);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active { transform: scale(0.98); }
+
+  .btn-ghost {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text);
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--orange); }
+  .btn-ghost .play-icon {
+    width: 42px;
+    height: 42px;
+    border: 1.5px solid var(--faint);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    color: white;
-    text-decoration: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-}
+    font-size: 12px;
+    transition: border-color 0.2s;
+  }
+  .btn-ghost:hover .play-icon { border-color: var(--orange); }
 
-.whatsapp {
-    bottom: 20px;
-    background: #25D366;
-}
-
-.direction {
-    bottom: 75px;
-    background: #6b3e26;
-}
-    
-    /* 🔥 REVIEWS SECTION */
-#reviews {
-    padding: 60px 20px;
-    text-align: center;
-    background: #fff3e8;
-}
-
-.review-container {
+  .hero-stats {
+    position: absolute;
+    bottom: 48px;
+    right: 48px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    gap: 48px;
+    z-index: 2;
+  }
+
+  .stat-item { text-align: right; }
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1;
+  }
+  .stat-num span { color: var(--orange); }
+  .stat-label {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 48px;
+    left: 48px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .scroll-line {
+    width: 40px;
+    height: 1px;
+    background: var(--faint);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--orange);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  /* MARQUEE */
+  .marquee-strip {
+    background: var(--orange);
+    padding: 14px 0;
+    overflow: hidden;
+    display: flex;
+  }
+  .marquee-inner {
+    display: flex;
+    gap: 0;
+    white-space: nowrap;
+    animation: marquee 20s linear infinite;
+  }
+  .marquee-item {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #000;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .marquee-item::after { content: '✦'; font-size: 10px; }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* SECTION BASE */
+  section { padding: 100px 48px; }
+
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-tag::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--orange);
+  }
+
+  h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(44px, 5.5vw, 72px);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+  h2 .orange { color: var(--orange); }
+
+  /* PROGRAMS SECTION */
+  .programs { background: var(--deep); }
+  .programs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 56px;
+  }
+
+  .programs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .program-card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 40px 36px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+    group: card;
+  }
+  .program-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,92,0,0.05) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .program-card:hover::before { opacity: 1; }
+  .program-card:hover {
+    border-color: rgba(255,92,0,0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 20px rgba(255,92,0,0.1);
+  }
+
+  .program-card.featured {
+    background: var(--orange);
+    border-color: var(--orange);
+  }
+  .program-card.featured:hover {
+    box-shadow: 0 12px 40px rgba(255,92,0,0.35);
+  }
+
+  .program-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    color: var(--faint);
+    margin-bottom: 28px;
+  }
+  .program-card.featured .program-num { color: rgba(0,0,0,0.4); }
+
+  .program-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+    filter: grayscale(1);
+    transition: filter 0.3s;
+  }
+  .program-card:hover .program-icon { filter: grayscale(0); }
+
+  .program-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    line-height: 1.05;
+    margin-bottom: 12px;
+  }
+  .program-card.featured .program-title { color: #000; }
+
+  .program-desc {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+  .program-card.featured .program-desc { color: rgba(0,0,0,0.65); }
+
+  .program-meta {
+    display: flex;
     gap: 20px;
-}
+  }
+  .meta-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    background: var(--border);
+    color: var(--muted);
+    border-radius: 3px;
+  }
+  .program-card.featured .meta-badge {
+    background: rgba(0,0,0,0.15);
+    color: rgba(0,0,0,0.7);
+  }
 
-.review-card {
-    background: white;
-    padding: 20px;
-    width: 250px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    transition: 0.3s;
-}
+  .program-arrow {
+    position: absolute;
+    top: 36px;
+    right: 36px;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--faint);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: var(--muted);
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .program-card:hover .program-arrow {
+    border-color: var(--orange);
+    color: var(--orange);
+    background: rgba(255,92,0,0.1);
+  }
+  .program-card.featured .program-arrow {
+    border-color: rgba(0,0,0,0.3);
+    color: #000;
+  }
 
-.review-card:hover {
-    transform: translateY(-8px);
-}
+  /* 3D MODULE */
+  .module-3d {
+    background: var(--black);
+    padding: 100px 0 0;
+  }
 
-.review-card p {
-    font-style: italic;
-    margin-bottom: 10px;
-}
+  .module-3d-header {
+    padding: 0 48px;
+    margin-bottom: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
 
-.review-card h4 {
-    color: #6b3e26;
-}
-    #gallery img {
-    transition: 0.3s;
-}
+  #three-canvas-wrapper {
+    position: relative;
+    width: 100%;
+    height: 560px;
+    overflow: hidden;
+  }
 
-#gallery img:hover {
-    transform: scale(1.05);
-}
-    
-    /* 📱 MOBILE RESPONSIVE FIX */
-@media (max-width: 768px) {
+  #three-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
 
-    /* Navbar stack */
-    nav {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+  .canvas-overlay-ui {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: flex-end;
+    padding: 32px 48px;
+    background: linear-gradient(to top, rgba(8,8,8,0.8) 0%, transparent 50%);
+  }
 
-    nav div {
-        margin-top: 10px;
-    }
+  .canvas-info {
+    display: flex;
+    gap: 48px;
+  }
 
-    /* Hero text छोटा */
-    h2 {
-        font-size: 28px;
-    }
+  .canvas-metric {
+    pointer-events: none;
+  }
+  .canvas-metric-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 4px;
+  }
+  .canvas-metric-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text);
+  }
 
-    /* Section padding कम */
-    #home {
-        padding: 60px 15px;
-    }
+  .canvas-controls {
+    position: absolute;
+    top: 24px;
+    right: 48px;
+    display: flex;
+    gap: 10px;
+    pointer-events: all;
+  }
 
-    #menu, #gallery, #contact, #map, #reviews {
-        padding: 40px 15px;
-    }
+  .ctrl-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    border: 1px solid var(--faint);
+    background: rgba(8,8,8,0.7);
+    color: var(--muted);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+    backdrop-filter: blur(8px);
+  }
+  .ctrl-btn:hover, .ctrl-btn.active {
+    border-color: var(--orange);
+    color: var(--orange);
+  }
 
-    /* Menu full width */
-    .menu-category {
-        width: 95%;
-    }
+  .drag-hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+    pointer-events: none;
+    transition: opacity 0.5s;
+  }
 
-    /* Gallery images full width */
-    #gallery img {
-        width: 90%;
-    }
+  /* FEATURES */
+  .features {
+    background: var(--deep);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 0;
+  }
 
-    /* Review cards full width */
-    .review-card {
-        width: 90%;
-    }
+  .features-left {
+    padding: 100px 48px;
+    border-right: 1px solid var(--border);
+  }
 
-    /* Buttons adjust */
-    .whatsapp, .direction {
-        width: 45px;
-        height: 45px;
-        font-size: 18px;
-    }
+  .features-right {
+    padding: 100px 48px;
+  }
 
-    .direction {
-        bottom: 70px;
-    }
-}
-    
+  .feature-list {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .feature-item {
+    display: flex;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: padding-left 0.25s;
+  }
+  .feature-item:hover { padding-left: 8px; }
+  .feature-item:first-child { border-top: 1px solid var(--border); }
+
+  .feature-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--orange);
+    min-width: 28px;
+    padding-top: 3px;
+  }
+
+  .feature-text h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .feature-text p {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 48px;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--orange);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .stat-card:hover::after { transform: scaleX(1); }
+
+  .stat-card-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .stat-card-num span { color: var(--orange); }
+
+  .stat-card-label {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  /* TESTIMONIALS */
+  .testimonials { background: var(--black); }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 56px;
+  }
+
+  .testi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 36px 32px;
+    border-radius: 2px;
+    transition: border-color 0.3s;
+  }
+  .testi-card:hover { border-color: rgba(255,92,0,0.3); }
+
+  .stars {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+  }
+  .star {
+    width: 12px;
+    height: 12px;
+    background: var(--orange);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  }
+
+  .testi-quote {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+
+  .testi-author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .testi-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--faint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--orange);
+  }
+
+  .testi-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text);
+  }
+  .testi-role {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* PRICING */
+  .pricing { background: var(--deep); }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 56px;
+  }
+
+  .price-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 48px 40px;
+    position: relative;
+    transition: transform 0.3s;
+  }
+  .price-card:hover { transform: translateY(-4px); }
+
+  .price-card.popular {
+    background: var(--orange);
+    border-color: var(--orange);
+    z-index: 1;
+    transform: scale(1.02);
+  }
+  .price-card.popular:hover { transform: scale(1.02) translateY(-4px); }
+
+  .popular-badge {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    color: var(--orange);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 6px 20px;
+  }
+
+  .plan-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .price-card.popular .plan-name { color: rgba(0,0,0,0.55); }
+
+  .plan-price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 64px;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .price-card.popular .plan-price { color: #000; }
+  .plan-price sup {
+    font-size: 28px;
+    font-weight: 600;
+    vertical-align: top;
+    margin-top: 12px;
+    display: inline-block;
+  }
+
+  .plan-period {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 32px;
+    letter-spacing: 0.1em;
+  }
+  .price-card.popular .plan-period { color: rgba(0,0,0,0.5); }
+
+  .plan-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 32px;
+  }
+  .price-card.popular .plan-divider { background: rgba(0,0,0,0.15); }
+
+  .plan-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 40px;
+  }
+  .plan-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text);
+  }
+  .price-card.popular .plan-features li { color: rgba(0,0,0,0.8); }
+  .plan-features li::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background: var(--orange);
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    flex-shrink: 0;
+  }
+  .price-card.popular .plan-features li::before { background: #000; }
+
+  .plan-btn {
+    width: 100%;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 16px;
+    border: 1.5px solid var(--orange);
+    background: transparent;
+    color: var(--orange);
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .plan-btn:hover {
+    background: var(--orange);
+    color: #000;
+    box-shadow: 0 0 24px rgba(255,92,0,0.4);
+  }
+  .price-card.popular .plan-btn {
+    background: #000;
+    color: var(--orange);
+    border-color: #000;
+  }
+  .price-card.popular .plan-btn:hover {
+    background: transparent;
+    color: #000;
+    border-color: #000;
+    box-shadow: none;
+  }
+
+  /* CTA */
+  .cta-section {
+    background: var(--black);
+    padding: 120px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(255,92,0,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-section h2 {
+    font-size: clamp(54px, 7vw, 96px);
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .cta-section p {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto 40px;
+    line-height: 1.65;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 60px 48px 32px;
+  }
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 48px;
+  }
+  .footer-brand p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 12px;
+    max-width: 280px;
+    line-height: 1.6;
+  }
+  .footer-links-group h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .footer-links-group ul { list-style: none; }
+  .footer-links-group li { margin-bottom: 10px; }
+  .footer-links-group a {
+    font-size: 13px;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+    opacity: 0.7;
+  }
+  .footer-links-group a:hover { color: var(--orange); opacity: 1; }
+
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-bottom p {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-tag { animation: fadeUp 0.7s ease 0.2s both; }
+  h1 { animation: fadeUp 0.7s ease 0.35s both; }
+  .hero-sub { animation: fadeUp 0.7s ease 0.5s both; }
+  .hero-actions { animation: fadeUp 0.7s ease 0.65s both; }
 </style>
 </head>
-
 <body>
 
-<!-- NAVBAR -->
 <nav>
-    <h1>Panchaayat cafe ☕</h1>
-    <div>
-        <a href="#home">Home</a>
-        <a href="#menu">Menu</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#contact">Contact</a>
-    </div>
+  <a href="#" class="nav-logo">APE<span>X</span></a>
+  <ul class="nav-links">
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#training">Training</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <a href="#pricing" class="nav-cta">Start Training</a>
 </nav>
 
 <!-- HERO -->
-<section id="home">
-    <h2>Panchaayat cafe <span class="chai">☕</span></h2>
-    <p>Best Cafe in Bharatpur.</p>
-    <button onclick="alert('Visit us in Bharatpur!')">Visit Now</button>
+<section class="hero" id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <div class="hero-tag">Elite Performance Training</div>
+    <h1>FORGE<br>YOUR<br><em>LIMIT</em></h1>
+    <p class="hero-sub">Science-backed programs. Expert coaching. Relentless progression. Built for athletes who refuse to settle.</p>
+    <div class="hero-actions">
+      <button class="btn-primary">Join Now — Free Week</button>
+      <button class="btn-ghost">
+        <span class="play-icon">▶</span>
+        Watch Film
+      </button>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">12K<span>+</span></div>
+      <div class="stat-label">Active Members</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">98<span>%</span></div>
+      <div class="stat-label">Goal Success Rate</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">340<span>+</span></div>
+      <div class="stat-label">Programs Available</div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    Scroll to explore
+  </div>
 </section>
 
-<!-- MENU -->
-<section id="menu">
-    <h2>Our Menu 🍽️</h2>
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner" id="marquee-inner">
+    <div class="marquee-item">Strength Training</div>
+    <div class="marquee-item">HIIT Cardio</div>
+    <div class="marquee-item">Olympic Lifting</div>
+    <div class="marquee-item">Nutrition Plans</div>
+    <div class="marquee-item">Recovery Science</div>
+    <div class="marquee-item">Elite Coaching</div>
+    <div class="marquee-item">Body Recomposition</div>
+    <div class="marquee-item">Performance Analytics</div>
+    <div class="marquee-item">Strength Training</div>
+    <div class="marquee-item">HIIT Cardio</div>
+    <div class="marquee-item">Olympic Lifting</div>
+    <div class="marquee-item">Nutrition Plans</div>
+    <div class="marquee-item">Recovery Science</div>
+    <div class="marquee-item">Elite Coaching</div>
+    <div class="marquee-item">Body Recomposition</div>
+    <div class="marquee-item">Performance Analytics</div>
+  </div>
+</div>
 
-    <div class="menu-category">
-        <h3>Burger</h3>
-        <p>
-        Aloo Tikka ₹39 | Zesty Masala ₹39 | Veggie Tikka ₹49 | Veggie Masala ₹55 |
-        Makhani Paneer ₹59 | Cheese Veggie ₹59 | Grill Burger ₹59 | Paneer Tikka ₹69 |
-        Pizza Burger ₹79 | Cheese Grill ₹79 | Paneer Grill ₹89 | Pizza Grill ₹99
-        </p>
+<!-- PROGRAMS -->
+<section class="programs" id="programs">
+  <div class="programs-header">
+    <div>
+      <div class="section-tag">Training Systems</div>
+      <h2>BUILT FOR<br><span class="orange">DOMINANCE</span></h2>
     </div>
+    <a href="#" class="nav-cta">View All Programs</a>
+  </div>
 
-    <div class="menu-category">
-        <h3>Hot Beverages</h3>
-        <p>
-        Adrak Chai ₹19 | Elaichi Chai ₹25 | Masala Chai ₹29 | Kesar Chai ₹35 |
-        Hot Coffee ₹39 | Strong Coffee ₹49 | Chocolate Coffee ₹59
-        </p>
+  <div class="programs-grid">
+    <div class="program-card">
+      <div class="program-arrow">↗</div>
+      <div class="program-num">01 / POWER</div>
+      <div class="program-icon">🏋️</div>
+      <div class="program-title">Maximum<br>Strength</div>
+      <div class="program-desc">Progressive overload protocols designed to build raw, functional strength. Compete at a higher level.</div>
+      <div class="program-meta">
+        <div class="meta-badge">16 Weeks</div>
+        <div class="meta-badge">Advanced</div>
+      </div>
     </div>
-
-    <div class="menu-category">
-        <h3>Cold Beverages</h3>
-        <p>
-        Cold Coffee ₹89 | Vanilla Shake ₹89 | Chocolate Shake ₹89 |
-        Pineapple Shake ₹89 | Strawberry Shake ₹89 | Strong Cold Coffee ₹99 |
-        Kesar Badam ₹109 | KitKat Shake ₹109 | Oreo Shake ₹109 | Dry Fruits ₹119
-        </p>
+    <div class="program-card featured">
+      <div class="program-arrow">↗</div>
+      <div class="program-num">02 / HYBRID</div>
+      <div class="program-icon">⚡</div>
+      <div class="program-title">Hybrid<br>Athlete</div>
+      <div class="program-desc">The complete package. Build strength, conditioning, and endurance simultaneously.</div>
+      <div class="program-meta">
+        <div class="meta-badge">12 Weeks</div>
+        <div class="meta-badge">All Levels</div>
+      </div>
     </div>
-
-    <div class="menu-category">
-        <h3>Pasta & Chowmein</h3>
-        <p>
-        Red Pasta ₹79 | Cheese Red Pasta ₹89 |
-        Veg Chowmein ₹79 | Paneer Chowmein ₹89
-        </p>
+    <div class="program-card">
+      <div class="program-arrow">↗</div>
+      <div class="program-num">03 / SHRED</div>
+      <div class="program-icon">🔥</div>
+      <div class="program-title">Fat Loss<br>Protocol</div>
+      <div class="program-desc">Metabolic conditioning that strips fat while preserving hard-earned muscle mass.</div>
+      <div class="program-meta">
+        <div class="meta-badge">8 Weeks</div>
+        <div class="meta-badge">Intermediate</div>
+      </div>
     </div>
-
-    <div class="menu-category">
-        <h3>Pizza</h3>
-        <p>
-        Small Onion ₹79 | Small OTC ₹89 | Onion Large ₹109 |
-        Zesty Pizza ₹149 | Veg Exotic ₹149 | Margherita ₹159 |
-        OTC Large ₹169 | Corn Loaded ₹189 | Fully Loaded ₹219 |
-        Paneer Tikka ₹239 | Cheese Burst ₹279
-        </p>
+    <div class="program-card">
+      <div class="program-arrow">↗</div>
+      <div class="program-num">04 / MASS</div>
+      <div class="program-icon">💪</div>
+      <div class="program-title">Muscle<br>Hypertrophy</div>
+      <div class="program-desc">Evidence-based volume and intensity protocols to maximize muscle growth.</div>
+      <div class="program-meta">
+        <div class="meta-badge">20 Weeks</div>
+        <div class="meta-badge">All Levels</div>
+      </div>
     </div>
-
-    <div class="menu-category">
-        <h3>Fries & Momos</h3>
-        <p>
-        Salty Fries ₹59 | Masala Fries ₹59 | Peri Peri ₹79 | Cheese Dip ₹89 |
-        Veg Steam ₹59 | Paneer Steam ₹79 | Veg Fried ₹89 |
-        Paneer Fried ₹109 | Kurkure Momos ₹99
-        </p>
+    <div class="program-card">
+      <div class="program-arrow">↗</div>
+      <div class="program-num">05 / SPEED</div>
+      <div class="program-icon">🏃</div>
+      <div class="program-title">Athletic<br>Performance</div>
+      <div class="program-desc">Sprint mechanics, explosive power and sport-specific conditioning for real athletes.</div>
+      <div class="program-meta">
+        <div class="meta-badge">10 Weeks</div>
+        <div class="meta-badge">Advanced</div>
+      </div>
     </div>
-
-    <div class="menu-category">
-        <h3>Sandwich & Patties</h3>
-        <p>
-        Cheese Veg ₹79 | Cheese Corn ₹89 | Tandoori Paneer ₹109 |
-        Makhani Cheese Grill ₹119 | Special Grill ₹129 |
-        Aloo Patties ₹39 | Paneer Patties ₹49 | Cheese Paneer ₹69
-        </p>
+    <div class="program-card">
+      <div class="program-arrow">↗</div>
+      <div class="program-num">06 / RESET</div>
+      <div class="program-icon">🧠</div>
+      <div class="program-title">Mind +<br>Recovery</div>
+      <div class="program-desc">Sleep optimization, HRV monitoring, and active recovery to maximize adaptation.</div>
+      <div class="program-meta">
+        <div class="meta-badge">Ongoing</div>
+        <div class="meta-badge">All Levels</div>
+      </div>
     </div>
-
-    <div class="menu-category">
-        <h3>Maggi</h3>
-        <p>
-        Plain ₹69 | Butter Veg ₹79 | Paneer Maggi ₹89 | Full Loaded ₹99
-        </p>
-    </div>
-
+  </div>
 </section>
 
-<!-- GALLERY -->
-<section id="gallery">
-    <h2>Our Vibe</h2>
+<!-- 3D MODULE -->
+<section class="module-3d" id="training">
+  <div class="module-3d-header">
+    <div>
+      <div class="section-tag">3D Performance Lab</div>
+      <h2>TRACK YOUR<br><span class="orange">PROGRESS</span></h2>
+    </div>
+    <div style="text-align:right; max-width: 300px;">
+      <p style="font-size:13px; color: var(--muted); line-height:1.6;">Interactive 3D visualization of your performance metrics across all training dimensions.</p>
+    </div>
+  </div>
 
-    <img src="Panchayat Cafe 1.webp">
-    <img src="Panchayat Cafe 2.webp">
-    <img src="Panchayat Cafe 3.webp">
-
-</section>
-<!-- CONTACT -->
-<section id="contact">
-    <h2>Contact Us</h2>
-    <p>Near by St. Peter's, near lupin chowraha, Krishna Nagar, Bharatpur, Rajasthan 321001</p>
-    <p>📞 +91 8385014807</p>
-</section>
-    
-     <section id="reviews">
-    <h2>Our Customer Reviews ⭐</h2>
-
-    <div class="review-container">
-
-        <div class="review-card">
-            <p>"Best chai in Bharatpur! Taste ekdum next level ☕🔥"</p>
-            <h4>— Rahul Sharma</h4>
+  <div id="three-canvas-wrapper">
+    <canvas id="three-canvas"></canvas>
+    <div class="canvas-controls">
+      <button class="ctrl-btn active" id="ctrl-rotate">Auto Rotate</button>
+      <button class="ctrl-btn" id="ctrl-wireframe">Wireframe</button>
+      <button class="ctrl-btn" id="ctrl-explode">Explode</button>
+    </div>
+    <div class="canvas-overlay-ui">
+      <div class="canvas-info">
+        <div class="canvas-metric">
+          <div class="canvas-metric-label">Strength Index</div>
+          <div class="canvas-metric-val" id="metric-strength">87.4</div>
         </div>
-
-        <div class="review-card">
-            <p>"Affordable prices aur vibes mast hai. Daily aata hoon yaha!"</p>
-            <h4>— Aman Verma</h4>
+        <div class="canvas-metric">
+          <div class="canvas-metric-label">Endurance Score</div>
+          <div class="canvas-metric-val" id="metric-endurance">73.1</div>
         </div>
-
-        <div class="review-card">
-            <p>"Maggi aur chai combo ❤️ Must try place!"</p>
-            <h4>— Sneha Gupta</h4>
+        <div class="canvas-metric">
+          <div class="canvas-metric-label">Recovery Rate</div>
+          <div class="canvas-metric-val" id="metric-recovery">91.6</div>
         </div>
-
-        <div class="review-card">
-            <p>"Service fast hai aur staff friendly 👍"</p>
-            <h4>— Mohit Singh</h4>
+        <div class="canvas-metric">
+          <div class="canvas-metric-label">Power Output</div>
+          <div class="canvas-metric-val" id="metric-power">1.24 W/kg</div>
         </div>
+      </div>
     </div>
+    <div class="drag-hint" id="drag-hint">DRAG TO ROTATE — SCROLL TO ZOOM</div>
+  </div>
 </section>
 
-<!-- MAP -->
-<section id="map">
-    <h2>Find Us 📍</h2>
-    <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3372.6360586799256!2d77.5094424!3d27.2129347!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3973a36ec76f8349%3A0x3e3e528f5ef1c6d3!2sPanchaayat%20cafe!5e1!3m2!1sen!2sin!4v1777976836765!5m2!1sen!2sin"
-        width="90%" 
-        height="350"
-        style="border:0; border-radius:15px;"
-        loading="lazy">
-    </iframe>
+<!-- FEATURES -->
+<section class="features" id="about">
+  <div class="features-left">
+    <div class="section-tag">Why Apex</div>
+    <h2>ELITE<br>STANDARD</h2>
+    <div class="feature-list">
+      <div class="feature-item">
+        <div class="feature-num">01</div>
+        <div class="feature-text">
+          <h3>Periodized Programming</h3>
+          <p>Every program is structured in phases to maximize adaptation and prevent plateau through strategic variation.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">02</div>
+        <div class="feature-text">
+          <h3>AI Adaptive Workouts</h3>
+          <p>Our system learns your performance patterns and adjusts load, volume, and intensity in real-time.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">03</div>
+        <div class="feature-text">
+          <h3>Live Coaching Access</h3>
+          <p>Direct access to certified coaches for form checks, programming questions, and nutritional guidance.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">04</div>
+        <div class="feature-text">
+          <h3>Biometric Integration</h3>
+          <p>Sync with Apple Watch, Garmin, Whoop and more to track HRV, sleep quality, and readiness scores.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="features-right">
+    <div class="section-tag">By the numbers</div>
+    <h2>PROVEN<br><span class="orange">RESULTS</span></h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-card-num">94<span>%</span></div>
+        <div class="stat-card-label">Member retention after 6 months</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-num">3.2<span>×</span></div>
+        <div class="stat-card-label">Faster results vs solo training</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-num">18<span>lbs</span></div>
+        <div class="stat-card-label">Average fat loss in 12 weeks</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-num">47<span>%</span></div>
+        <div class="stat-card-label">Average strength increase, 16wk</div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- FLOAT BUTTONS -->
-<a href="https://wa.me/918385014807" class="whatsapp" target="_blank">💬</a>
-<a href="https://www.google.com/maps/dir/?api=1&destination=27.2129347%2C77.5094424" 
-   class="direction" target="_blank">
-   📍
-</a>
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-tag">Social Proof</div>
+  <h2>ATHLETES<br><span class="orange">DON'T LIE</span></h2>
+
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testi-quote">"I've tried every program out there. Apex is the only one that actually adapts to my schedule and keeps pushing my limits without breaking me down."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">MR</div>
+        <div>
+          <div class="testi-name">Marcus Rivera</div>
+          <div class="testi-role">Powerlifter · 2 years with Apex</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testi-quote">"Lost 22 pounds in 14 weeks while actually gaining strength. The nutrition programming paired with the workouts is absolutely dialed in."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">SK</div>
+        <div>
+          <div class="testi-name">Sara Kim</div>
+          <div class="testi-role">CrossFit Athlete · 18 months with Apex</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testi-quote">"The live coaching feature changed everything. Having expert eyes on my form and programming made the difference between injury and real progress."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">DJ</div>
+        <div>
+          <div class="testi-name">Dmitri Johansson</div>
+          <div class="testi-role">Olympic Weightlifter · 3 years with Apex</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-tag">Membership Plans</div>
+  <h2>INVEST IN<br><span class="orange">YOURSELF</span></h2>
+
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="plan-name">Starter</div>
+      <div class="plan-price"><sup>$</sup>29</div>
+      <div class="plan-period">per month, billed annually</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>Access to 50+ programs</li>
+        <li>Progress tracking dashboard</li>
+        <li>Nutrition calculator</li>
+        <li>Community forum</li>
+        <li>Mobile app access</li>
+      </ul>
+      <button class="plan-btn">Get Started</button>
+    </div>
+    <div class="price-card popular">
+      <div class="popular-badge">Most Popular</div>
+      <div class="plan-name">Elite</div>
+      <div class="plan-price"><sup>$</sup>79</div>
+      <div class="plan-period">per month, billed annually</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>All 340+ programs</li>
+        <li>AI adaptive workouts</li>
+        <li>Biometric integration</li>
+        <li>2× monthly coach calls</li>
+        <li>Custom meal plans</li>
+        <li>Priority support</li>
+      </ul>
+      <button class="plan-btn">Start Elite</button>
+    </div>
+    <div class="price-card">
+      <div class="plan-name">Pro Athlete</div>
+      <div class="plan-price"><sup>$</sup>149</div>
+      <div class="plan-period">per month, billed annually</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>Everything in Elite</li>
+        <li>Unlimited coach access</li>
+        <li>Custom program design</li>
+        <li>Weekly video reviews</li>
+        <li>Bloodwork analysis</li>
+        <li>1-on-1 strategy sessions</li>
+      </ul>
+      <button class="plan-btn">Go Pro</button>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-tag" style="justify-content:center; margin-bottom:20px;">The Decision Point</div>
+  <h2>STOP<br>WAITING.<br><span class="orange">START.</span></h2>
+  <p>Every elite athlete started exactly where you are right now. The only variable is the decision you make today.</p>
+  <button class="btn-primary" style="font-size: 16px; padding: 20px 56px;">Begin Your Free Week</button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo">APE<span>X</span></a>
+      <p>Precision programming for athletes who demand more from themselves and their training.</p>
+    </div>
+    <div class="footer-links-group">
+      <h4>Programs</h4>
+      <ul>
+        <li><a href="#">Strength</a></li>
+        <li><a href="#">Hypertrophy</a></li>
+        <li><a href="#">Fat Loss</a></li>
+        <li><a href="#">Athletic Performance</a></li>
+      </ul>
+    </div>
+    <div class="footer-links-group">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Coaches</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-links-group">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Help Center</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 APEX Training Systems. All rights reserved.</p>
+    <p style="color: var(--orange); font-family: 'Barlow Condensed'; font-weight: 700; letter-spacing: 0.1em; font-size: 12px;">NO DAYS OFF</p>
+  </div>
+</footer>
+
+<script>
+// ====== HERO CANVAS - PARTICLE FIELD ======
+const heroCanvas = document.getElementById('hero-canvas');
+const hCtx = heroCanvas.getContext('2d');
+
+let particles = [];
+let heroW, heroH;
+
+function resizeHero() {
+  heroW = heroCanvas.width = heroCanvas.offsetWidth;
+  heroH = heroCanvas.height = heroCanvas.offsetHeight;
+}
+resizeHero();
+window.addEventListener('resize', resizeHero);
+
+const PARTICLE_COUNT = 80;
+for (let i = 0; i < PARTICLE_COUNT; i++) {
+  particles.push({
+    x: Math.random() * heroW,
+    y: Math.random() * heroH,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    size: Math.random() * 1.5 + 0.5,
+    opacity: Math.random() * 0.4 + 0.1
+  });
+}
+
+let mouseX = heroW / 2, mouseY = heroH / 2;
+heroCanvas.parentElement.addEventListener('mousemove', e => {
+  const rect = heroCanvas.getBoundingClientRect();
+  mouseX = e.clientX - rect.left;
+  mouseY = e.clientY - rect.top;
+});
+
+function drawHero() {
+  hCtx.clearRect(0, 0, heroW, heroH);
+
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.x < 0) p.x = heroW;
+    if (p.x > heroW) p.x = 0;
+    if (p.y < 0) p.y = heroH;
+    if (p.y > heroH) p.y = 0;
+  });
+
+  // Draw connections
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 120) {
+        const alpha = (1 - dist / 120) * 0.15;
+        hCtx.beginPath();
+        hCtx.moveTo(particles[i].x, particles[i].y);
+        hCtx.lineTo(particles[j].x, particles[j].y);
+        hCtx.strokeStyle = `rgba(255,92,0,${alpha})`;
+        hCtx.lineWidth = 0.5;
+        hCtx.stroke();
+      }
+    }
+  }
+
+  // Draw particles
+  particles.forEach(p => {
+    const dx = p.x - mouseX;
+    const dy = p.y - mouseY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    const glow = dist < 150 ? (1 - dist / 150) * 0.8 : 0;
+    hCtx.beginPath();
+    hCtx.arc(p.x, p.y, p.size + glow * 2, 0, Math.PI * 2);
+    hCtx.fillStyle = `rgba(255,92,0,${p.opacity + glow * 0.5})`;
+    hCtx.fill();
+  });
+
+  requestAnimationFrame(drawHero);
+}
+drawHero();
+
+
+// ====== THREE.JS 3D MODULE ======
+const threeCanvas = document.getElementById('three-canvas');
+const wrapper = document.getElementById('three-canvas-wrapper');
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(50, wrapper.clientWidth / wrapper.clientHeight, 0.1, 1000);
+camera.position.set(0, 0, 7);
+
+const renderer = new THREE.WebGLRenderer({ canvas: threeCanvas, antialias: true, alpha: true });
+renderer.setSize(wrapper.clientWidth, wrapper.clientHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearColor(0x000000, 0);
+
+// Lighting
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.15);
+scene.add(ambientLight);
+
+const orangeLight = new THREE.PointLight(0xFF5C00, 3, 20);
+orangeLight.position.set(3, 3, 4);
+scene.add(orangeLight);
+
+const blueLight = new THREE.PointLight(0x1a3d6b, 1.5, 15);
+blueLight.position.set(-4, -2, 3);
+scene.add(blueLight);
+
+const rimLight = new THREE.DirectionalLight(0xFF5C00, 0.5);
+rimLight.position.set(-3, 4, -2);
+scene.add(rimLight);
+
+// Central sculpture - performance metrics dodecahedron
+const mainGeo = new THREE.DodecahedronGeometry(1.5, 0);
+const mainMat = new THREE.MeshStandardMaterial({
+  color: 0x1a1a1a,
+  metalness: 0.9,
+  roughness: 0.15,
+  envMapIntensity: 1
+});
+const mainMesh = new THREE.Mesh(mainGeo, mainMat);
+scene.add(mainMesh);
+
+// Wireframe overlay
+const wireMat = new THREE.MeshBasicMaterial({ color: 0xFF5C00, wireframe: true, transparent: true, opacity: 0.3 });
+const wireMesh = new THREE.Mesh(mainGeo.clone(), wireMat);
+wireMesh.scale.setScalar(1.01);
+scene.add(wireMesh);
+
+// Orbiting spheres (metrics)
+const metricData = [
+  { label: 'Strength', color: 0xFF5C00, radius: 3.2, speed: 0.4, size: 0.22, phase: 0 },
+  { label: 'Endurance', color: 0xff8c33, radius: 2.8, speed: -0.55, size: 0.18, phase: Math.PI / 3 },
+  { label: 'Recovery', color: 0xFF5C00, radius: 3.6, speed: 0.35, size: 0.25, phase: Math.PI },
+  { label: 'Power', color: 0xff6b1a, radius: 2.5, speed: -0.48, size: 0.16, phase: Math.PI * 1.5 },
+  { label: 'Agility', color: 0xFF5C00, radius: 4.0, speed: 0.3, size: 0.14, phase: Math.PI * 0.7 },
+  { label: 'Focus', color: 0xff8c33, radius: 3.0, speed: 0.62, size: 0.2, phase: Math.PI * 1.2 }
+];
+
+const orbitingMeshes = metricData.map(m => {
+  const geo = new THREE.SphereGeometry(m.size, 16, 16);
+  const mat = new THREE.MeshStandardMaterial({ color: m.color, emissive: m.color, emissiveIntensity: 0.6, metalness: 0.7, roughness: 0.2 });
+  const mesh = new THREE.Mesh(geo, mat);
+  scene.add(mesh);
+  return { mesh, ...m, angle: m.phase, yAngle: Math.random() * Math.PI * 2 };
+});
+
+// Orbit rings
+orbitingMeshes.forEach(m => {
+  const ringGeo = new THREE.TorusGeometry(m.radius, 0.008, 8, 80);
+  const ringMat = new THREE.MeshBasicMaterial({ color: 0xFF5C00, transparent: true, opacity: 0.12 });
+  const ring = new THREE.Mesh(ringGeo, ringMat);
+  ring.rotation.x = (Math.random() - 0.5) * Math.PI;
+  ring.rotation.y = (Math.random() - 0.5) * Math.PI;
+  scene.add(ring);
+  m.ringRef = ring;
+});
+
+// Grid floor
+const gridHelper = new THREE.GridHelper(20, 24, 0xFF5C00, 0x1a1a1a);
+gridHelper.position.y = -3.5;
+gridHelper.material.transparent = true;
+gridHelper.material.opacity = 0.2;
+scene.add(gridHelper);
+
+// Particle system
+const particleCount = 200;
+const positions = new Float32Array(particleCount * 3);
+for (let i = 0; i < particleCount; i++) {
+  const theta = Math.random() * Math.PI * 2;
+  const phi = Math.random() * Math.PI;
+  const r = 4 + Math.random() * 3;
+  positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+  positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+  positions[i * 3 + 2] = r * Math.cos(phi);
+}
+const partGeo = new THREE.BufferGeometry();
+partGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+const partMat = new THREE.PointsMaterial({ color: 0xFF5C00, size: 0.03, transparent: true, opacity: 0.5 });
+const pointCloud = new THREE.Points(partGeo, partMat);
+scene.add(pointCloud);
+
+// Controls state
+let autoRotate = true;
+let wireframeMode = false;
+let explodeMode = false;
+let explodeT = 0;
+let isDragging = false, prevMouse = { x: 0, y: 0 };
+let rotX = 0, rotY = 0;
+let zoom = 7;
+
+document.getElementById('ctrl-rotate').addEventListener('click', function() {
+  autoRotate = !autoRotate;
+  this.classList.toggle('active', autoRotate);
+});
+
+document.getElementById('ctrl-wireframe').addEventListener('click', function() {
+  wireframeMode = !wireframeMode;
+  this.classList.toggle('active', wireframeMode);
+  mainMesh.visible = !wireframeMode;
+  wireMat.opacity = wireframeMode ? 1.0 : 0.3;
+});
+
+document.getElementById('ctrl-explode').addEventListener('click', function() {
+  explodeMode = !explodeMode;
+  this.classList.toggle('active', explodeMode);
+});
+
+threeCanvas.addEventListener('mousedown', e => { isDragging = true; prevMouse = { x: e.clientX, y: e.clientY }; autoRotate = false; document.getElementById('ctrl-rotate').classList.remove('active'); document.getElementById('drag-hint').style.opacity = '0'; });
+threeCanvas.addEventListener('mouseup', () => { isDragging = false; });
+threeCanvas.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  const dx = e.clientX - prevMouse.x;
+  const dy = e.clientY - prevMouse.y;
+  rotY += dx * 0.008;
+  rotX += dy * 0.008;
+  prevMouse = { x: e.clientX, y: e.clientY };
+});
+threeCanvas.addEventListener('wheel', e => {
+  zoom += e.deltaY * 0.01;
+  zoom = Math.max(3, Math.min(12, zoom));
+  camera.position.z = zoom;
+  e.preventDefault();
+}, { passive: false });
+
+// Touch
+threeCanvas.addEventListener('touchstart', e => { isDragging = true; prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY }; autoRotate = false; });
+threeCanvas.addEventListener('touchend', () => { isDragging = false; });
+threeCanvas.addEventListener('touchmove', e => {
+  if (!isDragging) return;
+  const dx = e.touches[0].clientX - prevMouse.x;
+  const dy = e.touches[0].clientY - prevMouse.y;
+  rotY += dx * 0.008;
+  rotX += dy * 0.008;
+  prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  e.preventDefault();
+}, { passive: false });
+
+window.addEventListener('resize', () => {
+  camera.aspect = wrapper.clientWidth / wrapper.clientHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(wrapper.clientWidth, wrapper.clientHeight);
+});
+
+const clock = new THREE.Clock();
+let t = 0;
+
+function animateThree() {
+  requestAnimationFrame(animateThree);
+  const delta = clock.getDelta();
+  t += delta;
+
+  if (autoRotate) {
+    rotY += delta * 0.3;
+    rotX = Math.sin(t * 0.2) * 0.15;
+  }
+
+  mainMesh.rotation.y = rotY;
+  mainMesh.rotation.x = rotX;
+  wireMesh.rotation.y = rotY + 0.005;
+  wireMesh.rotation.x = rotX;
+
+  // Pulsing glow on main mesh
+  const pulse = Math.sin(t * 2) * 0.5 + 0.5;
+  orangeLight.intensity = 2 + pulse * 2;
+
+  // Explode
+  explodeT += (explodeMode ? 1 : -1) * delta * 1.5;
+  explodeT = Math.max(0, Math.min(1, explodeT));
+
+  // Update orbiting spheres
+  orbitingMeshes.forEach((m, i) => {
+    m.angle += m.speed * delta;
+    m.yAngle += m.speed * 0.3 * delta;
+
+    const ringRot = m.ringRef.rotation;
+    const x = Math.cos(m.angle) * m.radius;
+    const y = Math.sin(m.yAngle) * 1.5;
+    const z = Math.sin(m.angle) * m.radius;
+
+    const explodeOffset = explodeT * 2;
+    m.mesh.position.set(
+      x + (x > 0 ? explodeOffset : -explodeOffset) * 0.5,
+      y + (y > 0 ? explodeOffset : -explodeOffset) * 0.5,
+      z
+    );
+
+    // Pulsing emissive
+    m.mesh.material.emissiveIntensity = 0.4 + Math.sin(t * 3 + i) * 0.3;
+  });
+
+  // Rotate particle cloud
+  pointCloud.rotation.y += delta * 0.05;
+  pointCloud.rotation.x += delta * 0.03;
+
+  // Animate grid
+  gridHelper.position.y = -3.5 + Math.sin(t * 0.5) * 0.2;
+
+  renderer.render(scene, camera);
+}
+animateThree();
+
+// Animate metrics display
+function updateMetrics() {
+  document.getElementById('metric-strength').textContent = (85 + Math.sin(Date.now() * 0.001) * 5).toFixed(1);
+  document.getElementById('metric-endurance').textContent = (71 + Math.cos(Date.now() * 0.0013) * 4).toFixed(1);
+  document.getElementById('metric-recovery').textContent = (90 + Math.sin(Date.now() * 0.0008 + 1) * 3).toFixed(1);
+  const power = (1.2 + Math.sin(Date.now() * 0.0011) * 0.1).toFixed(2);
+  document.getElementById('metric-power').textContent = power + ' W/kg';
+  setTimeout(updateMetrics, 80);
+}
+updateMetrics();
+</script>
 </body>
 </html>
